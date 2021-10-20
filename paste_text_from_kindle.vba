@@ -94,13 +94,13 @@ Else
     strOut1 = strClip
 End If
 
-' Find Kindle's paragraph separators, and replace with two new-lines, using RE
-' * In Kindle, paragraphs are separated by a blank line.
-' * For a copy in Kindle, each paragraph-separator on the clip-board is hex: C2A020
+' Find Kindle's paragraph separators of the form hex:C2A020, and replace them with two new-lines, using RE
+' * hex:C2A020
 '   * C2A0 is UTF8 for non-breaking space
 '   * 20 is ASCII space
 ' * In VBA regex, \u is the prefix for UTF8
 strPattern = "[\u00A0][\x20]"
+' In Kindle, paragraphs are separated by a blank line, so replace with two new-lines.
 strReplace = vbNewLine & vbNewLine
 
 With regEx
