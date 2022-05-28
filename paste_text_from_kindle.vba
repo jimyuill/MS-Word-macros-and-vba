@@ -34,26 +34,37 @@ Public Sub paste_text_from_kindle()
 '
 ' #### INSTALLATION:
 '
-' * Word's VBA-system has to be configured so it can use the DataObject type:
-'   * "Microsoft Forms... Object Library" needs to be added.
-'   * The instructions for that are at this page, in the post by "Uwe G. G." on "June 13, 2018"
-'     * https://answers.microsoft.com/en-us/msoffice/forum/msoffice_word-mso_win10-mso_2016/mystery-compile-error-user-defined-type-not/b0c07a65-9f0c-43f1-a181-12c95db0ac8d
+' * Install the present VBA code in a Word document or template
+'   * For example, the VBA code can be installed in your Normal.dotm file,
+'     and a hotkey can be assigned to the VBA code.
+'     * This will make the macro available whenever you use Word on your computer.
+'   * Installation instructions can be found on the Internet, e.g.,
+'     * An overview of Normal.dotm, and where to find it:
+'       * See the section, "Normal.dotm - the pan-global template - the granddaddy of all document templates"
+'       * http://www.addbalance.com/usersguide/templates.htm
+'     * What do I do with macros sent to me by other users to help me out?
+'       * https://wordmvp.com/FAQs/MacrosVBA/CreateAMacro.htm
+'     * How to assign a Word command or macro to a hot-key?
+'       * https://wordmvp.com/FAQs/Customization/AsgnCmdOrMacroToHotkey.htm
 '
-' * Word's VBA-system has to be configured so it can use regular-expressions:
-'   * "Microsoft VBScript Regular Expressions" needs to be added.
-'   * The instructions for that are at this page, in the post by "Automate This" on "Mar 20 '14", under "Step 1"
-'     * https://stackoverflow.com/questions/22542834/how-to-use-regular-expressions-regex-in-microsoft-excel-both-in-cell-and-loops
-'
-' * Install this VBA code in your Word Normal.dotm file, and assign a hotkey to it.
-'   * Instructions can be found on the Internet, e.g.,
-'     * https://wordmvp.com/FAQs/MacrosVBA/CreateAMacro.htm
+' * Configure the Word document or tempalate where the VBA code is installed
+'   * Open the Word document or tempalate
+'     * To open a template, right click on it, and select "Open".  Do not double-click on the template.
+'   * Open the VBA editor, using Alt+F11
+'   * Follow the instructions below to set-up access to the needed VBA functions
+'     * Configure access to the DataObject type:
+'       * "Microsoft Forms... Object Library" is needed.
+'       * The instructions for that are at this page, in the post by "Uwe G. G." on "June 13, 2018"
+'         * https://answers.microsoft.com/en-us/msoffice/forum/msoffice_word-mso_win10-mso_2016/mystery-compile-error-user-defined-type-not/b0c07a65-9f0c-43f1-a181-12c95db0ac8d
+'     * Configure access to regular-expressions:
+'       * "Microsoft VBScript Regular Expressions" is needed.
+'       * The instructions for that are at this page, in the post by "Automate This" on "Mar 20 '14", under "Step 1"
+'         * https://stackoverflow.com/questions/22542834/how-to-use-regular-expressions-regex-in-microsoft-excel-both-in-cell-and-loops
 '
 '
 ' #### TESTING:
 '
-' * This program was written for a particular Kindle book, and the program was tested with it:
-'   * "Hands-On RTOS with Microcontrollers"
-'
+' * This program has been tested with two Kindle books.
 ' * This program might not work with other Kindle books, if they make different alterations to the clipboard,
 '   for copied text.
 '
