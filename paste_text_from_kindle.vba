@@ -13,6 +13,7 @@ Public Sub paste_text_from_kindle()
 '       An integrated development environment (IDE) has the ability to greatly help or hinder development.
 '
 '       Amos, Brian. Hands-On RTOS with Microcontrollers: Building real-time embedded systems using FreeRTOS, STM32 MCUs, and SEGGER debug tools (p. 103). Packt Publishing. Kindle Edition.
+'
 ' * Kindle replaces paragraph separtors with either hex:C2A020, or hex:20.
 '   * Neither of those values are paragraph separators.
 '     * Hex:20 is an ASCII space.
@@ -22,7 +23,11 @@ Public Sub paste_text_from_kindle()
 ' This VBA-code pastes the clipboard, and:
 ' * Removes the added empty-line and bibliographic info
 ' * Replaces the Kindle paragraph-separators hex:C2A020 with two new-lines.
-'   (The pasted paragraphs will be separated by an empty line.)
+'   * These pasted paragraphs will be separated by an empty line.
+' * If Kindle used Hex:20 (ASCII space) as the paragraph separator, then the pasted text's
+'   paragraphs will not start on a new line nor be separated by an empty line.
+' * Sets the pasted text to italics as specified in the configuration variable SET_ITALICS_ON
+'   * More info about SET_ITALICS_ON is below.
 '
 ' This VBA-code does not alter the clipboard contents.
 '
@@ -30,6 +35,7 @@ Public Sub paste_text_from_kindle()
 ' * Those alterations are not fixed by the present code.
 ' * For example, in a bulleted-list, Kindle removes the paragraph separator between list-items,
 '   and it replaces the bullet-symbols with a space.
+'
 '
 '
 ' #### INSTALLATION:
@@ -47,7 +53,7 @@ Public Sub paste_text_from_kindle()
 '     * How to assign a Word command or macro to a hot-key?
 '       * https://wordmvp.com/FAQs/Customization/AsgnCmdOrMacroToHotkey.htm
 '
-' * Configure the Word document or tempalate where the VBA code is installed
+' * Configure the Word document or tempalate in which the VBA code is installed
 '   * Open the Word document or tempalate
 '     * To open a template, right click on it, and select "Open".  Do not double-click on the template.
 '   * Open the VBA editor, using Alt+F11
@@ -75,8 +81,14 @@ Public Sub paste_text_from_kindle()
 '   * https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference
 '   * https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expressions
 '
-' Copyright (c) 2021 by Jim Yuill, under the MIT License
+' Copyright (c) 2021-2022 by Jim Yuill, under the MIT License
 '
+
+' Configuration variable:
+' * To paste text as italics, SET_ITALICS_ON should be set equal to "True"
+' * To not paste text as italics, SET_ITALICS_ON should be set equal to "False"
+Const SET_ITALICS_ON As String = "False"
+
 
 Dim MyData As DataObject
 Dim strClip, strOut1, strOut2 As String
@@ -128,6 +140,18 @@ Else
 End If
 
 ' Write string to document
-Selection.TypeText strOut2
+
+' Info on setting italics
+' * http://vbcity.com/forums/t/131307.aspx
+'   * See last post
+' * https://stackoverflow.com/questions/31558157/vba-word-selection-typetext-changing-font
+'   * See post by Paul Ogilvie
+With Selection
+    .InsertAfter (strOut2)
+    If SET_ITALICS_ON = "True" Then
+        .Font.Italic = True
+    End If
+End With
+
 
 End Sub ' END: paste_text_from_kindle()
